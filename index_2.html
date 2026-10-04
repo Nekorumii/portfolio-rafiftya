@@ -1,0 +1,651 @@
+from pathlib import Path
+
+src = Path("/mnt/data/Portfolio_Rafiftya_Text_Only.html")
+# Rebuild a redesigned version from scratch, keeping the same source-supported portfolio content.
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Rafiftya Arzaki — Creative Portfolio</title>
+<meta name="description" content="Portfolio of Muhammad Rafiftya Arzaki — Photographer, Videographer, Graphic Designer and Informatics Engineering student.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f3f1ec;
+  --paper:#fbfaf7;
+  --ink:#111;
+  --muted:#686762;
+  --line:#d8d5ce;
+  --accent:#ff5c35;
+  --dark:#111;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.container{width:min(1240px,90%);margin:auto}
+section{padding:110px 0}
+.label{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#686762;
+}
+.label::before{
+  content:"";
+  width:24px;height:1px;background:var(--accent);
+}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif}
+
+/* NAV */
+nav{
+  position:fixed;
+  top:0;left:0;width:100%;
+  z-index:1000;
+  padding:20px 0;
+  background:rgba(243,241,236,.86);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(17,17,17,.08);
+}
+.nav-inner{
+  width:min(1240px,90%);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{font:700 20px "Space Grotesk"}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{font-size:13px;color:#555;transition:.25s}
+.nav-links a:hover{color:var(--accent)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  padding-top:145px;
+  padding-bottom:70px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"RA";
+  position:absolute;
+  right:-40px;
+  bottom:-100px;
+  font:700 40vw/.7 "Space Grotesk";
+  color:rgba(17,17,17,.035);
+  letter-spacing:-35px;
+  pointer-events:none;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 280px;
+  gap:60px;
+  position:relative;
+  z-index:1;
+}
+.hero-meta{
+  display:flex;
+  justify-content:space-between;
+  color:#777;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-bottom:55px;
+}
+.hero h1{
+  font-size:clamp(75px,11.5vw,165px);
+  line-height:.78;
+  letter-spacing:-10px;
+  max-width:1000px;
+}
+.hero h1 .outline{
+  color:transparent;
+  -webkit-text-stroke:1.5px var(--ink);
+}
+.hero-copy{
+  margin-top:65px;
+  max-width:650px;
+  font-size:18px;
+  line-height:1.8;
+  color:#5e5d58;
+}
+.hero-side{
+  align-self:end;
+  padding-bottom:10px;
+}
+.role-box{
+  border-left:2px solid var(--accent);
+  padding-left:22px;
+}
+.role-box small{
+  display:block;
+  color:#777;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-bottom:15px;
+}
+.role-box p{
+  font:600 19px/1.5 "Space Grotesk";
+}
+.scroll{
+  margin-top:80px;
+  font-size:11px;
+  color:#777;
+  letter-spacing:2px;
+}
+
+/* GENERAL TITLES */
+.section-head{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:50px;
+  margin-bottom:65px;
+}
+.section-head h2{
+  font-size:clamp(55px,7vw,100px);
+  line-height:.88;
+  letter-spacing:-6px;
+}
+
+/* ABOUT */
+.about{
+  background:var(--dark);
+  color:white;
+}
+.about .label{color:#999}
+.about-grid{
+  display:grid;
+  grid-template-columns:.8fr 1.5fr;
+  gap:100px;
+}
+.about-number{
+  font:700 clamp(100px,15vw,190px)/.7 "Space Grotesk";
+  color:#252525;
+  letter-spacing:-15px;
+}
+.about-text{
+  font-size:21px;
+  line-height:1.9;
+  color:#aaa;
+}
+.about-text p+p{margin-top:30px}
+.about-text strong{color:white;font-weight:500}
+
+/* SERVICES */
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+.service-card{
+  background:var(--paper);
+  min-height:360px;
+  padding:32px;
+  border:1px solid var(--line);
+  position:relative;
+  transition:.3s;
+}
+.service-card:hover{
+  transform:translateY(-7px);
+  border-color:#999;
+}
+.service-card:nth-child(2){background:var(--ink);color:white}
+.service-card:nth-child(2) p{color:#aaa}
+.service-card .num{
+  font:600 13px "Space Grotesk";
+  color:#999;
+}
+.service-card h3{
+  font-size:36px;
+  margin-top:105px;
+  margin-bottom:20px;
+}
+.service-card p{color:#777;line-height:1.7}
+
+/* WORK */
+.work-list{border-top:1px solid var(--line)}
+.work-item{
+  display:grid;
+  grid-template-columns:80px 1fr 1fr 30px;
+  gap:25px;
+  align-items:center;
+  padding:32px 0;
+  border-bottom:1px solid var(--line);
+  transition:.25s;
+}
+.work-item:hover{padding-left:18px}
+.work-no{color:#999;font-size:12px}
+.work-item h3{font-size:32px}
+.work-item p{color:#777}
+.arrow{font-size:22px;color:var(--accent)}
+
+/* EXPERIENCE */
+.experience{background:#e7e4dd}
+.exp-item{
+  display:grid;
+  grid-template-columns:210px 1fr 120px;
+  gap:45px;
+  padding:42px 0;
+  border-top:1px solid #c9c6bf;
+}
+.exp-date{font-size:12px;color:#777}
+.exp-item h3{font-size:32px;margin-bottom:7px}
+.exp-item h4{font-size:15px;font-weight:500;color:#777;margin-bottom:20px}
+.exp-item p{max-width:720px;color:#65645f;line-height:1.8}
+.exp-tag{
+  justify-self:end;
+  align-self:start;
+  border:1px solid #bbb8b0;
+  border-radius:50px;
+  padding:8px 13px;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+/* SKILLS */
+.skills-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+}
+.skill-group h3{font-size:30px;margin-bottom:25px}
+.skill-list{display:flex;flex-wrap:wrap;gap:9px}
+.skill{
+  border:1px solid #bbb8b0;
+  padding:11px 16px;
+  border-radius:50px;
+  font-size:13px;
+  color:#555;
+  background:#f7f5f0;
+}
+
+/* INFO */
+.info-section{background:var(--dark);color:white}
+.info-row{
+  display:grid;
+  grid-template-columns:190px 1fr;
+  gap:50px;
+  padding:40px 0;
+  border-top:1px solid #2d2d2d;
+}
+.info-date{font-size:12px;color:#777}
+.info-row h3{font-size:34px;margin-bottom:8px}
+.info-row h4{font-size:15px;font-weight:400;color:#888;margin-bottom:18px}
+.info-row p{color:#aaa;line-height:1.8;max-width:760px}
+
+/* CONTACT */
+.contact{
+  text-align:center;
+  padding:150px 0;
+}
+.contact h2{
+  font-size:clamp(70px,12vw,170px);
+  line-height:.78;
+  letter-spacing:-10px;
+  margin:35px 0 50px;
+}
+.contact h2 span{color:var(--accent)}
+.contact p{color:#777;font-size:17px;margin-bottom:32px}
+.buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.btn{
+  border:1px solid #999;
+  border-radius:50px;
+  padding:14px 23px;
+  font-size:13px;
+  transition:.25s;
+}
+.btn:hover{background:var(--ink);color:white;border-color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:white}
+
+/* FOOTER */
+footer{
+  background:#111;color:#777;padding:28px 0;font-size:12px;
+}
+.footer-inner{display:flex;justify-content:space-between}
+
+/* RESPONSIVE */
+@media(max-width:850px){
+  section{padding:85px 0}
+  .nav-links{display:none}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-meta{margin-bottom:35px}
+  .hero h1{font-size:72px;letter-spacing:-5px}
+  .hero-copy{margin-top:45px}
+  .hero-side{margin-top:25px}
+  .section-head{grid-template-columns:1fr;gap:25px}
+  .section-head h2{font-size:65px}
+  .about-grid{grid-template-columns:1fr;gap:45px}
+  .about-number{font-size:100px}
+  .service-grid{grid-template-columns:1fr}
+  .service-card{min-height:300px}
+  .service-card h3{margin-top:75px}
+  .work-item{grid-template-columns:45px 1fr 25px}
+  .work-item p{grid-column:2}
+  .work-item h3{font-size:26px}
+  .exp-item{grid-template-columns:1fr;gap:12px}
+  .exp-tag{justify-self:start}
+  .skills-grid{grid-template-columns:1fr}
+  .info-row{grid-template-columns:1fr;gap:12px}
+  .contact{padding:110px 0}
+  .contact h2{font-size:72px;letter-spacing:-5px}
+  .footer-inner{flex-direction:column;gap:10px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">RA<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-meta">
+          <span>Portfolio / 2026</span>
+          <span>Jakarta, Indonesia</span>
+        </div>
+
+        <h1>
+          Muhammad<br>
+          <span class="outline">Rafiftya</span><br>
+          Arzaki.
+        </h1>
+
+        <p class="hero-copy">
+          Informatics Engineering student at Gunadarma University with a strong
+          interest in photography, videography, graphic design, and visual storytelling.
+        </p>
+
+        <div class="scroll">SCROLL TO EXPLORE ↓</div>
+      </div>
+
+      <div class="hero-side">
+        <div class="role-box">
+          <small>CREATIVE PROFILE</small>
+          <p>Photographer<br>/ Videographer<br>/ Graphic Designer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">01 — About Me</div>
+      <h2>Turning ideas<br>into stories.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-number">01</div>
+      <div class="about-text">
+        <p>Hello, I'm <strong>Muhammad Rafiftya Arzaki</strong>, an Informatics Engineering student at Gunadarma University.</p>
+        <p>I have a strong interest in <strong>photography, videography, and graphic design</strong>. I enjoy capturing meaningful moments, exploring creative ideas, and turning them into engaging visual stories.</p>
+        <p>My experience comes from organizational activities, campus events, documentation, social media content, and creative projects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">02 — What I Do</div>
+      <h2>Creative<br>Direction.</h2>
+    </div>
+
+    <div class="service-grid">
+      <div class="service-card">
+        <span class="num">01</span>
+        <h3>Photography</h3>
+        <p>Event documentation, creative photography, macro photography, and visual storytelling.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">02</span>
+        <h3>Videography</h3>
+        <p>Event videos, cinematic content, social media videos, and visual documentation.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">03</span>
+        <h3>Graphic Design</h3>
+        <p>Social media content, event visuals, promotional materials, and creative layouts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">03 — Selected Work</div>
+      <h2>Selected<br>Projects.</h2>
+    </div>
+
+    <div class="work-list">
+      <div class="work-item">
+        <span class="work-no">01</span>
+        <h3>Photography</h3>
+        <p>Creative & Event Documentation</p>
+        <span class="arrow">↗</span>
+      </div>
+      <div class="work-item">
+        <span class="work-no">02</span>
+        <h3>Macro Photography</h3>
+        <p>International Featured Work</p>
+        <span class="arrow">↗</span>
+      </div>
+      <div class="work-item">
+        <span class="work-no">03</span>
+        <h3>Gathering Informatika</h3>
+        <p>Decoration & Documentation</p>
+        <span class="arrow">↗</span>
+      </div>
+      <div class="work-item">
+        <span class="work-no">04</span>
+        <h3>Graphic Design</h3>
+        <p>Event & Social Media Visuals</p>
+        <span class="arrow">↗</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="experience">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">04 — Experience</div>
+      <h2>Experience.</h2>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">NOV 2025 — PRESENT</div>
+      <div>
+        <h3>Multimedia Bureau</h3>
+        <h4>BEM FTI Universitas Gunadarma</h4>
+        <p>Contributed to the creation and management of visual content for organizational events and social media, including photography, videography, and graphic design.</p>
+      </div>
+      <span class="exp-tag">Multimedia</span>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">DEC 2024</div>
+      <div>
+        <h3>Head of Division</h3>
+        <h4>Gathering Informatika — Decoration & Documentation</h4>
+        <p>Led the Decoration and Documentation Division in planning visual concepts, coordinating team members, and documenting the event through photography and videography.</p>
+      </div>
+      <span class="exp-tag">Leadership</span>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">JAN 2018 — DEC 2025</div>
+      <div>
+        <h3>Head of Documentation & Publication</h3>
+        <h4>Karang Taruna</h4>
+        <p>Led the Documentation and Publication Division in managing event documentation, photography, videography, graphic design, and social media publication.</p>
+      </div>
+      <span class="exp-tag">Creative</span>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">05 — Skills</div>
+      <h2>Tools &<br>Skills.</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Creative Skills</h3>
+        <div class="skill-list">
+          <span class="skill">Photography</span>
+          <span class="skill">Videography</span>
+          <span class="skill">Graphic Design</span>
+          <span class="skill">Camera Operation</span>
+          <span class="skill">Creative Thinking</span>
+          <span class="skill">Visual Storytelling</span>
+          <span class="skill">Design & Editing</span>
+          <span class="skill">Communication</span>
+          <span class="skill">Teamwork</span>
+          <span class="skill">Time Management</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Software</h3>
+        <div class="skill-list">
+          <span class="skill">Adobe</span>
+          <span class="skill">Canva</span>
+          <span class="skill">CapCut</span>
+          <span class="skill">PicsArt</span>
+          <span class="skill">Alight Motion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">06 — Equipment</div>
+      <h2>My<br>Gear.</h2>
+    </div>
+
+    <div class="info-row">
+      <div class="info-date">CAMERA</div>
+      <div><h3>Nikon D7200</h3><p>Primary camera for photography and event documentation.</p></div>
+    </div>
+    <div class="info-row">
+      <div class="info-date">CAMERA</div>
+      <div><h3>Nikon D5200</h3><p>DSLR camera used for creative and documentation work.</p></div>
+    </div>
+    <div class="info-row">
+      <div class="info-date">LENSES</div>
+      <div><h3>Nikkor Lenses</h3><p>18-55mm · 35mm · 55-200mm · 85mm · 18-140mm</p></div>
+    </div>
+    <div class="info-row">
+      <div class="info-date">EXPERIENCE</div>
+      <div><h3>Multi-brand</h3><p>Adaptable to different camera brands and lenses.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="label">07 — Education</div>
+      <h2>Currently<br>Learning.</h2>
+    </div>
+
+    <div class="info-row" style="border-color:var(--line)">
+      <div class="info-date">SEP 2024 — PRESENT</div>
+      <div>
+        <h3>Gunadarma University</h3>
+        <h4>Informatics Engineering</h4>
+        <p style="color:#666">Currently studying Informatics Engineering while continuously developing creative skills in photography, videography, graphic design, and visual media.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="label">08 — Recognition</div>
+      <h2>Worth<br>Remembering.</h2>
+    </div>
+
+    <div class="info-row" style="border-color:var(--line)">
+      <div class="info-date">OCT 2017</div>
+      <div>
+        <h3>Macro Photography</h3>
+        <h4>International Feature — CNC Macro Closeup</h4>
+        <p style="color:#666">A personal macro photography work was selected as a Daily Feature by CNC Macro Closeup, an international macro photography community on Instagram.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="label">09 — Contact</div>
+    <h2>Let's create<br><span>something.</span></h2>
+    <p>Have a project, event, or creative idea? Let's turn it into something visual.</p>
+    <div class="buttons">
+      <a class="btn primary" href="mailto:zulka21rs@gmail.com">Email Me</a>
+      <a class="btn" href="https://instagram.com/atcharz" target="_blank">Instagram ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span>© 2026 Muhammad Rafiftya Arzaki</span>
+      <span>Photography · Videography · Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
+'''
+
+out = Path("/mnt/data/Portfolio_Rafiftya_Redesign.html")
+out.write_text(html, encoding="utf-8")
+print(out)
